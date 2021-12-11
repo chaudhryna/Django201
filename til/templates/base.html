@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %} {% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <!-- component -->
+    <div class="flex flex-wrap bg-gray-100 w-full h-screen">
+      <div class="w-3/12 bg-white rounded p-3 shadow-lg">
+        <div class="flex items-center space-x-4 p-2 mb-5">
+          <h1>Things I Learned</h1>
+        </div>
+        <ul class="space-y-2 text-sm">
+          <li>
+            <a
+              href="/"
+              class="
+                flex
+                items-center
+                space-x-3
+                text-gray-700
+                p-2
+                rounded-md
+                font-medium
+                hover:bg-gray-200
+                focus: bg-gray-200
+                focus:shadow-outline
+              "
+            >
+              <span class="text-gray-600">
+                <svg
+                  class="h-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                  />
+                </svg>
+              </span>
+              <span>Home</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              class="
+                flex
+                items-center
+                space-x-3
+                text-gray-700
+                p-2
+                rounded-md
+                font-medium
+                hover:bg-gray-200
+                focus:bg-gray-200 
+                focus:shadow-outline
+              "
+            >
+              <span class="text-gray-600">
+                <svg
+                  class="h-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                  />
+                </svg>
+              </span>
+              <span>My profile</span>
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="{% url 'account_reset_password' %}"
+              class="
+                flex
+                items-center
+                space-x-3
+                text-gray-700
+                p-2
+                rounded-md
+                font-medium
+                hover:bg-gray-200
+                focus:bg-gray-200 
+                focus:shadow-outline
+              "
+            >
+              <span class="text-gray-600">
+                <svg
+                  class="h-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                  />
+                </svg>
+              </span>
+              <span>Change password</span>
+            </a>
+          </li>
+          {% if request.user.is_authenticated %}
+          <li>
+            <a
+              href="{% url 'account_logout' %}"
+              class="
+                flex
+                items-center
+                space-x-3
+                text-gray-700
+                p-2
+                rounded-md
+                font-medium
+                hover:bg-gray-200
+                focus:bg-gray-200 focus:shadow-outline
+              "
+            >
+              <span class="text-gray-600">
+                <svg
+                  class="h-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                  />
+                </svg>
+              </span>
+              <span>Logout</span>
+            </a>
+          </li>
+          {% else %}
+          <li>
+            <a
+              href="{% url 'account_login' %}"
+              class="
+                flex
+                items-center
+                space-x-3
+                text-gray-700
+                p-2
+                rounded-md
+                font-medium
+                hover:bg-gray-200
+                focus:bg-gray-200 focus:shadow-outline
+              "
+            >
+              <span class="text-gray-600">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
+                  />
+                </svg>
+              </span>
+              <span>Login</span>
+            </a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+
+      <div class="w-9/12">
+        <div class="p-4 text-gray-500">
+          <hr />
+          {% block body %} {% block content %} Content goes here {% endblock %}
+          {% endblock %}
+        </div>
+      </div>
+    </div>
+
+    <!-- <a href="/">Home</a>
+    {% if request.user.is_authenticated %}
+        <a href="{% url 'account_logout' %}">Logout</a>
+    {% else %}
+        <a href="{% url 'account_login' %}">Login</a>
+    {% endif %}
+    <hr> -->
+  </body>
+</html>
