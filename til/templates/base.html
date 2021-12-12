@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -16,78 +17,38 @@
         </div>
         <ul class="space-y-2 text-sm">
           <li>
-            <a
-              href="/"
-              class="
-                flex
-                items-center
-                space-x-3
-                text-gray-700
-                p-2
-                rounded-md
-                font-medium
-                hover:bg-gray-200
-                focus: bg-gray-200
-                focus:shadow-outline
-              "
-            >
+            <a href="/" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
               <span class="text-gray-600">
-                <svg
-                  class="h-5"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                  />
+                <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                 </svg>
               </span>
               <span>Home</span>
             </a>
           </li>
           <li>
-            <a
-              href="#"
-              class="
-                flex
-                items-center
-                space-x-3
-                text-gray-700
-                p-2
-                rounded-md
-                font-medium
-                hover:bg-gray-200
-                focus:bg-gray-200 
-                focus:shadow-outline
-              "
-            >
+            <a href="#" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
               <span class="text-gray-600">
-                <svg
-                  class="h-5"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                  />
+                <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                 </svg>
               </span>
               <span>My profile</span>
             </a>
           </li>
-
+          <!-- new post -->
           <li>
-            <a
+            <a href="{% url 'feed:new_post' %}" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium js-toggle-modal hover:bg-gray-20 focus:bg-gray-200 focus:shadow-outline">
+              <span class="text-gray-600">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+                </svg>
+              </span>
+              <span>New Post</span>
+            </a>
+          </li>
+          <li>
+            <a 
               href="{% url 'account_reset_password' %}"
               class="
                 flex
@@ -98,8 +59,7 @@
                 rounded-md
                 font-medium
                 hover:bg-gray-200
-                focus:bg-gray-200 
-                focus:shadow-outline
+                focus:bg-gray-200 focus:shadow-outline
               "
             >
               <span class="text-gray-600">
@@ -195,21 +155,47 @@
         </ul>
       </div>
 
-      <div class="w-9/12">
+      <div class="w-9/12 mt-6">
         <div class="p-4 text-gray-500">
-          <hr />
-          {% block body %} {% block content %} Content goes here {% endblock %}
-          {% endblock %}
+          {% block body %} {% block content %} {% endblock %} {% endblock %}
         </div>
+
+        {% if request.user.is_authenticated %}
+        <!-- component -->
+        <div class="flex items-center justify-center fixed left-0 bottom-0 w-full h-full bg-gray-800 bg-opacity-75 hidden js-modal">
+          <div class="bg-white rounded-lg w-1/2">
+            <div class="flex flex-col items-start p-4">
+              <div class="flex items-center w-full">
+                <div class="text-gray-900 font-medium text-lg">New Post</div>
+                <svg class="ml-auto fill-current text-gray-700 w-6 h-6 cursor-pointer js-toggle-modal" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18">
+                  <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"/>
+                </svg>
+              </div>
+              <hr />
+              <div class="w-full">
+                <textarea class="border-2 border-blue-500 my-4 w-full js-post-text" rows="3" placeholder="Enter your post" maxlength="240" data-post-url="{% url 'feed:new_post' %}"></textarea>
+              </div>
+              <hr />
+              <div class="ml-auto">
+                <button class="bg-white text-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-1 px-3 inline-flex items-center text-sm mt-4 js-submit" type="button">
+                  <span class="mr-2">Create Post</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <path fill="currentcolor" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
       </div>
     </div>
-
-    <!-- <a href="/">Home</a>
-    {% if request.user.is_authenticated %}
-        <a href="{% url 'account_logout' %}">Logout</a>
-    {% else %}
-        <a href="{% url 'account_login' %}">Login</a>
-    {% endif %}
-    <hr> -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+      integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src=" {% static 'js/main.js' %}"></script>
   </body>
 </html>
