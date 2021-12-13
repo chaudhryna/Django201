@@ -7,7 +7,12 @@
 
 {% block content %}
 
-<h1 class="text-2xl mb-4 ml-8">{% trans "Sign In" %}</h1>
+<p>{% blocktrans %}If you have not created an account yet, then please
+<a class="font-bold text-blue-600" href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
+
+
+
+<h1 class="text-bold text-2xl my-4">{% trans "Sign In" %}</h1>
 
 <form class="login w-full max-w-xs bg-white flex flex-col py-5 px-8 mb-8 ml-8 rounded-lg shadow-lg" action="{% url 'account_login' %}" method="POST">
     {% csrf_token %}
