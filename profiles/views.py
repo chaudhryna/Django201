@@ -3,6 +3,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView, View
 from django.http import JsonResponse, HttpResponseBadRequest
 
+from .models import Profile
+
 from feed.models import Post 
 from followers.models import Follower
 
@@ -63,4 +65,3 @@ class FollowView(LoginRequiredMixin, View):
             'success': True,
             'wording': "Unfollow" if data['action'] == "follow" else "Follow"
         })
-
