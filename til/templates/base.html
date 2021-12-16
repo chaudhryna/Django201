@@ -26,14 +26,15 @@
               <span>Home</span>
             </a>
           </li>
+          {% if request.user.is_authenticated %}
           <li>
-            <a href="#" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
+            <a href="{% url 'profiles:update_profile' %}" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
               <span class="text-gray-600">
                 <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                 </svg>
               </span>
-              <span>Update My Profile</span>
+              <span>Update Profile</span>
             </a>
           </li>
           <!-- new post -->
@@ -48,69 +49,32 @@
             </a>
           </li>
           <li>
-            <a 
-              href="{% url 'account_reset_password' %}"
-              class="
-                flex
-                items-center
-                space-x-3
-                text-gray-700
-                p-2
-                rounded-md
-                font-medium
-                hover:bg-gray-200
-                focus:bg-gray-200 focus:shadow-outline
-              "
-            >
+            <a href="{% url 'feed:following' %}" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium js-toggle-modal hover:bg-gray-20 focus:bg-gray-200 focus:shadow-outline">
               <span class="text-gray-600">
-                <svg
-                  class="h-5"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                  />
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              </span>
+              <span>People I Follow</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'account_reset_password' %}" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
+              <span class="text-gray-600">
+                <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
                 </svg>
               </span>
               <span>Change password</span>
             </a>
           </li>
+          {% endif %}
           {% if request.user.is_authenticated %}
           <li>
-            <a
-              href="{% url 'account_logout' %}"
-              class="
-                flex
-                items-center
-                space-x-3
-                text-gray-700
-                p-2
-                rounded-md
-                font-medium
-                hover:bg-gray-200
-                focus:bg-gray-200 focus:shadow-outline
-              "
-            >
+            <a href="{% url 'account_logout' %}" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
               <span class="text-gray-600">
-                <svg
-                  class="h-5"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-                  />
+                <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
                 </svg>
               </span>
               <span>Logout</span>
@@ -118,34 +82,10 @@
           </li>
           {% else %}
           <li>
-            <a
-              href="{% url 'account_login' %}"
-              class="
-                flex
-                items-center
-                space-x-3
-                text-gray-700
-                p-2
-                rounded-md
-                font-medium
-                hover:bg-gray-200
-                focus:bg-gray-200 focus:shadow-outline
-              "
-            >
+            <a href="{% url 'account_login' %}" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
               <span class="text-gray-600">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
-                  />
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
                 </svg>
               </span>
               <span>Login</span>
@@ -160,8 +100,7 @@
           {% block body %} {% block content %} {% endblock %} {% endblock %}
         </div>
 
-        {% if request.user.is_authenticated %}
-        <!-- component -->
+        <!-- modal component -->
         <div class="flex items-center justify-center fixed left-0 bottom-0 w-full h-full bg-gray-800 bg-opacity-75 hidden js-modal">
           <div class="bg-white rounded-lg w-1/2">
             <div class="flex flex-col items-start p-4">
@@ -187,7 +126,6 @@
             </div>
           </div>
         </div>
-        {% endif %}
       </div>
     </div>
     <script

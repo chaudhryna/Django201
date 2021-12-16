@@ -9,12 +9,10 @@
 
 <p class="my-4 ml-2">{% blocktrans %}Already have an account? Then please <a class="font-bold text-blue-600" href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
 
-<form class="signup ml-2" id="signup_form" method="post" action="{% url 'account_signup' %}">
+<form class="signup ml-2" enctype="multipart/form-data" id="signup_form" method="post" action="{% url 'account_signup' %}">
   {% csrf_token %}
   {{ form|crispy }}
-  <!-- {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %} -->
+  
   <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded my-4 py-2 px-4">{% trans "Sign Up" %} &raquo;</button>
 </form>
 

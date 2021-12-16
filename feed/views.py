@@ -8,6 +8,23 @@ from followers.models import Follower
 
 class HomePage(TemplateView):
     http_method_names = ["get"]
+    template_name ="feed/homepage.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        self.request = request 
+        return super().dispatch(request, *args, **kwargs)
+    
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        
+        posts = Post.objects.all().order_by('-id')[0:30]
+            
+        context['posts'] = posts 
+        return context
+
+
+class FollowView(TemplateView):
+    http_method_names = ["get"]
     template_name = "feed/homepage.html"
 
     def dispatch(self, request, *args, **kwargs):
