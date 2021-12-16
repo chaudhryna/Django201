@@ -1,5 +1,6 @@
 from django.views.generic import DetailView, TemplateView
 from django.views.generic.edit import CreateView
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 
@@ -25,7 +26,7 @@ class HomePage(TemplateView):
 
 class FollowView(TemplateView):
     http_method_names = ["get"]
-    template_name = "feed/homepage.html"
+    template_name = "feed/following.html"
 
     def dispatch(self, request, *args, **kwargs):
         self.request = request 
@@ -37,12 +38,11 @@ class FollowView(TemplateView):
             following = list(
                 Follower.objects.filter(followed_by=self.request.user).values_list('following', flat=True)
                 )
-            if not following:
-                posts = Post.objects.all().order_by('-id')[0:30]
-            else:
+            if following:
                 posts= Post.objects.filter(author__in=following).order_by('-id')[0:60]
-        else:
-            posts = Post.objects.all().order_by('-id')[0:30]
+            else:
+                messages.info(self.request, "You're not following anyone yet!  Click on an avatar and click their follow button.")
+                posts = Post.objects.all().order_by('-id')[0:30]
             
         context['posts'] = posts 
         return context
